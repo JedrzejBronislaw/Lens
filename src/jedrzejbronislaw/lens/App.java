@@ -16,9 +16,33 @@ import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
 
-public class App {
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
+public class App extends Application{
 
 	public static void main(String[] args) {
+    	launch(args);
+	}
+	
+	@Override
+	public void start(Stage theStage) throws Exception {
+		Button button = new Button("Execute");
+		button.setOnAction(e -> execute());
+		
+    	theStage.setTitle("Lens");
+		theStage.setScene(new Scene(new StackPane(button), 600, 400));
+    	theStage.show();
+    	
+    	theStage.setOnCloseRequest(h -> Platform.exit());
+    }
+    
+    private void execute() {
 		System.out.println("Lens");
 
 		String dirPath = "D:\\temp\\foto";
@@ -90,4 +114,5 @@ public class App {
 			return null;
 		}
 	}
+
 }
