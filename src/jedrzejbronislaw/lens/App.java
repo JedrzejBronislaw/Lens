@@ -18,34 +18,64 @@ import javax.imageio.stream.ImageOutputStream;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import jedrzejbronislaw.lens.controllers.MainWindowController;
 
 public class App extends Application{
 
+	private File source;
+	
 	public static void main(String[] args) {
     	launch(args);
 	}
 	
 	@Override
 	public void start(Stage theStage) throws Exception {
-		Button button = new Button("Execute");
-		button.setOnAction(e -> execute());
-		
     	theStage.setTitle("Lens");
-		theStage.setScene(new Scene(new StackPane(button), 600, 400));
+    	
+    	Scene scene = new Scene(loadWindow(), 600, 400);
+    	scene.getStylesheets().add("/jedrzejbronislaw/lens/style.css");
+		theStage.setScene(scene);
     	theStage.show();
     	
     	theStage.setOnCloseRequest(h -> Platform.exit());
+    	
+    	
     }
+	
+	private Parent loadWindow() {
+		FXMLLoader loader = new FXMLLoader();
+		MainWindowController controller;
+		Parent parent;
+		
+		loader.setLocation(getClass().getResource("/jedrzejbronislaw/lens/MainWindow.fxml"));
+		try {
+			parent = loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		controller = loader.getController();
+		
+		controller.setSelectSourceDirEvent(dir -> {
+			List<Photo> list = listFiles(dir.getPath());
+			source = dir;
+			controller.setFileList(list);
+		});
+		
+		controller.setExecuteClick(() -> execute());
+		
+		return parent;
+	}
     
     private void execute() {
-		System.out.println("Lens");
+		if(source == null) return;
 
-		String dirPath = "D:\\temp\\foto";
+		String dirPath = source.getAbsolutePath();
 
 		List<Photo> x = listFiles(dirPath);
 		printFileList(x);
