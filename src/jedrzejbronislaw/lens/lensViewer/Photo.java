@@ -1,4 +1,4 @@
-package jedrzejbronislaw.lens;
+package jedrzejbronislaw.lens.lensViewer;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

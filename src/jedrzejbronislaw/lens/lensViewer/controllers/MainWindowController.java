@@ -1,4 +1,4 @@
-package jedrzejbronislaw.lens.controllers;
+package jedrzejbronislaw.lens.lensViewer.controllers;
 
 import java.io.File;
 import java.net.URL;
@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
-import jedrzejbronislaw.lens.Photo;
+import jedrzejbronislaw.lens.lensViewer.Photo;
 import jedrzejbronislaw.lens.tools.MyFXMLLoader;
 import jedrzejbronislaw.lens.tools.MyFXMLLoader.NodeAndController;
 import lombok.Setter;
@@ -82,7 +82,7 @@ public class MainWindowController implements Initializable{
 
 	private Node newPhotoItem(Photo photo) {
 		MyFXMLLoader loader = new MyFXMLLoader();
-		NodeAndController nac = loader.create("PhotoItem.fxml");
+		NodeAndController nac = loader.create("lensViewer/view/PhotoItem.fxml");
 		
 		PhotoItemController controller = (PhotoItemController) nac.getController();
 		controller.set(photo);

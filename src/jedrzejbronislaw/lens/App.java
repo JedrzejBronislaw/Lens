@@ -22,7 +22,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import jedrzejbronislaw.lens.controllers.MainWindowController;
+import jedrzejbronislaw.lens.lensViewer.Photo;
+import jedrzejbronislaw.lens.lensViewer.controllers.MainWindowController;
+import jedrzejbronislaw.lens.sideStripes.SideStripes;
 
 public class App extends Application{
 
@@ -51,7 +53,7 @@ public class App extends Application{
 		MainWindowController controller;
 		Parent parent;
 		
-		loader.setLocation(getClass().getResource("/jedrzejbronislaw/lens/MainWindow.fxml"));
+		loader.setLocation(getClass().getResource("/jedrzejbronislaw/lens/lensViewer/view/MainWindow.fxml"));
 		try {
 			parent = loader.load();
 		} catch (IOException e) {
@@ -81,7 +83,7 @@ public class App extends Application{
 		printFileList(x);
 
 		File dirRatio = new File(dirPath + "\\ratio");
-		RatioChanger changer = new RatioChanger(1.5f);
+		SideStripes stripes = new SideStripes(1.5f);
 		if (dirRatio.mkdir()) {
 
 			for (int i = 0; i < x.size(); i++) {
@@ -92,7 +94,7 @@ public class App extends Application{
 				BufferedImage image, image2;
 				try {
 					image = ImageIO.read(new File(photo.getPath().toString()));
-					image2 = changer.execute(image);
+					image2 = stripes.execute(image);
 					saveImage(image2, dirRatio.getAbsolutePath() + "\\" + photo.getFileName());
 					System.out.println(":)");
 				} catch (IOException e) {

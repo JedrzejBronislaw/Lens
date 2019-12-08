@@ -1,4 +1,4 @@
-package jedrzejbronislaw.lens;
+package jedrzejbronislaw.lens.sideStripes;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -8,7 +8,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class RatioChanger {
+public class SideStripes {
 
 	private static final Color backgroundColor = Color.WHITE;
 	@NonNull

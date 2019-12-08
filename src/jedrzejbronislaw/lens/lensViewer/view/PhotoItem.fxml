@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox alignment="CENTER" spacing="5.0" style="-fx-background-color: #ddf;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="jedrzejbronislaw.lens.controllers.PhotoItemController">
+<VBox alignment="CENTER" spacing="5.0" style="-fx-background-color: #ddf;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="jedrzejbronislaw.lens.lensViewer.controllers.PhotoItemController">
    <children>
       <ImageView fx:id="view" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="nameLabel" text="Label" />

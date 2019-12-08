@@ -1,4 +1,4 @@
-package jedrzejbronislaw.lens.controllers;
+package jedrzejbronislaw.lens.lensViewer.controllers;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,7 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import jedrzejbronislaw.lens.Photo;
+import jedrzejbronislaw.lens.lensViewer.Photo;
 
 public class PhotoItemController implements Initializable {
 
