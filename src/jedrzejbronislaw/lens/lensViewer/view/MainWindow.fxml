@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="jedrzejbronislaw.lens.lensViewer.controllers.MainWindowController">
+<BorderPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jedrzejbronislaw.lens.lensViewer.controllers.MainWindowController">
    <center>
       <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
          <content>
@@ -32,11 +32,11 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="executeButton" mnemonicParsing="false" text="Execute" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Label text="Source:" />
-            <Label disable="true" text="Destination:" GridPane.rowIndex="1" />
-            <Label fx:id="destinationLabel" disable="true" styleClass="clickLabel" text="Select" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="sourceLabel" styleClass="clickLabel" text="Select" GridPane.columnIndex="1" />
+            <Button fx:id="executeButton" mnemonicParsing="false" text="%execute" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label text="%source" />
+            <Label disable="true" text="%destination" GridPane.rowIndex="1" />
+            <Label fx:id="destinationLabel" disable="true" styleClass="clickLabel" text="%select" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="sourceLabel" styleClass="clickLabel" text="%select" GridPane.columnIndex="1" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -46,8 +46,11 @@
    <top>
       <HBox spacing="5.0" BorderPane.alignment="TOP_LEFT">
          <children>
-            <Label text="Photos:" />
-            <Label fx:id="photosNumberLabel" text="0" />
+            <Label text="%photos" />
+            <Label fx:id="photosNumberLabel" text="0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
          </children>
       </HBox>
    </top>

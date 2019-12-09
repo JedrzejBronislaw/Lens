@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,6 +32,8 @@ public class App extends Application{
 	private File source;
 	
 	public static void main(String[] args) {
+//		Locale.setDefault(Locale.ENGLISH);
+//		Locale.setDefault(new Locale("pl","PL"));
     	launch(args);
 	}
 	
@@ -54,6 +57,7 @@ public class App extends Application{
 		Parent parent;
 		
 		loader.setLocation(getClass().getResource("/jedrzejbronislaw/lens/lensViewer/view/MainWindow.fxml"));
+		loader.setResources(ResourceBundle.getBundle("jedrzejbronislaw.lens.lensViewer.lang.lang"));
 		try {
 			parent = loader.load();
 		} catch (IOException e) {
