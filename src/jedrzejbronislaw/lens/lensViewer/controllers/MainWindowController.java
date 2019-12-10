@@ -11,8 +11,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
+import jedrzejbronislaw.lens.Languages;
 import jedrzejbronislaw.lens.lensViewer.Photo;
 import jedrzejbronislaw.lens.tools.MyFXMLLoader;
 import jedrzejbronislaw.lens.tools.MyFXMLLoader.NodeAndController;
@@ -30,6 +32,11 @@ public class MainWindowController implements Initializable{
 	private VBox mainBox;
 	@FXML
 	private Button executeButton;
+	@FXML
+	private MenuItem englishItem;
+	@FXML
+	private MenuItem polishItem;
+	
 	
 	@Setter
 	private Consumer<File> selectSourceDirEvent;
@@ -37,6 +44,10 @@ public class MainWindowController implements Initializable{
 	private Consumer<File> selectDestinationDirEvent;
 	@Setter
 	private Runnable executeClick;
+	
+	@Setter
+	private Consumer<Languages> changeGUILanguage;
+	
 
 	private void chooseSource() {
 		DirectoryChooser chooser = new DirectoryChooser();
@@ -71,6 +82,13 @@ public class MainWindowController implements Initializable{
 		executeButton.setOnAction(e -> {
 			if (executeClick != null) executeClick.run();
 			});
+		englishItem.setOnAction(e -> changeGUILang(Languages.ENGLISH));
+		polishItem.setOnAction(e -> changeGUILang(Languages.POLISH));
+	}
+
+	private void changeGUILang(Languages language) {
+		if(changeGUILanguage != null)
+			changeGUILanguage.accept(language);
 	}
 
 	public void setFileList(List<Photo> list) {

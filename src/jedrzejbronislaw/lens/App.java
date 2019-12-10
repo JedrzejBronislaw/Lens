@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -30,15 +31,20 @@ import jedrzejbronislaw.lens.sideStripes.SideStripes;
 public class App extends Application{
 
 	private File source;
+	private Stage theStage;
 	
 	public static void main(String[] args) {
-//		Locale.setDefault(Locale.ENGLISH);
-//		Locale.setDefault(new Locale("pl","PL"));
     	launch(args);
 	}
 	
 	@Override
 	public void start(Stage theStage) throws Exception {
+		this.theStage = theStage;
+		buildScene(Languages.ENGLISH);
+	}
+	
+	private void buildScene(Languages language) {
+		Locale.setDefault(language.getLocale());
     	theStage.setTitle("Lens");
     	
     	Scene scene = new Scene(loadWindow(), 600, 400);
@@ -74,6 +80,8 @@ public class App extends Application{
 		});
 		
 		controller.setExecuteClick(() -> execute());
+		
+		controller.setChangeGUILanguage(lang -> buildScene(lang));
 		
 		return parent;
 	}
