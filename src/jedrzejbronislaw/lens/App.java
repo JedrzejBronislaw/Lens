@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import jedrzejbronislaw.lens.lensViewer.Photo;
 import jedrzejbronislaw.lens.lensViewer.controllers.MainWindowController;
 import jedrzejbronislaw.lens.sideStripes.SideStripes;
+import jedrzejbronislaw.lens.sideStripes.SideStripesTask;
 
 public class App extends Application{
 
@@ -90,33 +91,11 @@ public class App extends Application{
 		if(source == null) return;
 
 		String dirPath = source.getAbsolutePath();
-
-		List<Photo> x = listFiles(dirPath);
-		printFileList(x);
-
-		File dirRatio = new File(dirPath + "\\ratio");
-		SideStripes stripes = new SideStripes(1.5f);
-		if (dirRatio.mkdir()) {
-
-			for (int i = 0; i < x.size(); i++) {
-				Photo photo = x.get(i);
-
-				System.out.print((i + 1) + "/" + x.size() + " ");
-
-				BufferedImage image, image2;
-				try {
-					image = ImageIO.read(new File(photo.getPath().toString()));
-					image2 = stripes.execute(image);
-					saveImage(image2, dirRatio.getAbsolutePath() + "\\" + photo.getFileName());
-					System.out.println(":)");
-				} catch (IOException e) {
-					e.printStackTrace();
-					System.out.println("image open error (" + photo.getFileName().toString() + ")");
-				}
-
-			}
-
-		}
+    	
+    	SideStripesTask stripes = new SideStripesTask(listFiles(dirPath));
+    	stripes.setDestinationDir(new File(dirPath + "\\ratio"));
+    	stripes.setSaveImage((image, path) -> saveImage(image, path));
+    	stripes.execute();
 	}
 
 	private static boolean saveImage(BufferedImage newImage, String newPath) {
