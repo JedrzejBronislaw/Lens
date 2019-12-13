@@ -26,7 +26,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import jedrzejbronislaw.lens.lensViewer.Photo;
 import jedrzejbronislaw.lens.lensViewer.controllers.MainWindowController;
-import jedrzejbronislaw.lens.sideStripes.SideStripes;
 import jedrzejbronislaw.lens.sideStripes.SideStripesTask;
 
 public class App extends Application{

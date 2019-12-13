@@ -8,7 +8,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class SideStripes {
+class SideStripes {
 
 	private static final Color backgroundColor = Color.WHITE;
 	@NonNull
