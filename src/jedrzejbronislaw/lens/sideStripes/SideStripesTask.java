@@ -4,44 +4,44 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 import javax.imageio.ImageIO;
 
+import jedrzejbronislaw.lens.BasicOptions;
+import jedrzejbronislaw.lens.Task;
 import jedrzejbronislaw.lens.lensViewer.Photo;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @RequiredArgsConstructor
-public class SideStripesTask {
+public class SideStripesTask implements Task {
 
-	@NonNull
-	private List<Photo> photos;
 	@Setter
-	private File destinationDir;
-	@Setter
-	private BiConsumer<BufferedImage, String> saveImage;
-
+	private BasicOptions basicOptions;
+	
+	@Override
 	public void showOptionsWindow() {
 		
 	}
 
+	@Override
 	public void execute() {
 		exe(new SideStripesOptions());
 	}
-	
+
+//	@Override
 	public void execute(SideStripesOptions options) {
 		exe(options);
 	}
 
 	private int exe(SideStripesOptions options) {
-		if (destinationDir == null) return 0;
-		if (saveImage == null) return 0;
+		if (basicOptions == null) return 0;
+		if (basicOptions.getDestinationDir() == null) return 0;
+		if (basicOptions.getSaveImage() == null) return 0;
 		
-		List<Photo> x = photos;
+		List<Photo> x = basicOptions.getPhotos();
 		
-		File dirRatio = destinationDir;
+		File dirRatio = basicOptions.getDestinationDir();
 		SideStripes stripes = new SideStripes(options.ratio);
 		int successes = 0;
 		if (dirRatio.mkdir()) {
@@ -55,7 +55,7 @@ public class SideStripesTask {
 				try {
 					image = ImageIO.read(new File(photo.getPath().toString()));
 					image2 = stripes.execute(image);
-					saveImage.accept(image2, dirRatio.getAbsolutePath() + "\\" + photo.getFileName());
+					basicOptions.getSaveImage().accept(image2, dirRatio.getAbsolutePath() + "\\" + photo.getFileName());
 					System.out.println(":)");
 					successes++;
 				} catch (IOException e) {

@@ -38,7 +38,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="executeButton" mnemonicParsing="false" text="%execute" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <Button fx:id="executeButton" disable="true" mnemonicParsing="false" text="%execute" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                   <Label text="%source" />
                   <Label disable="true" text="%destination" GridPane.rowIndex="1" />
                   <Label fx:id="destinationLabel" disable="true" styleClass="clickLabel" text="%select" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -71,6 +71,7 @@
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
+            <Menu fx:id="taskMenu" mnemonicParsing="false" text="Tasks" />
           <Menu mnemonicParsing="false" text="Language">
             <items>
               <MenuItem fx:id="englishItem" mnemonicParsing="false" text="English" />

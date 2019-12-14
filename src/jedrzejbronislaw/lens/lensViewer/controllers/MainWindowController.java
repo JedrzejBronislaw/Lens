@@ -11,10 +11,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import jedrzejbronislaw.lens.Languages;
+import jedrzejbronislaw.lens.Task;
+import jedrzejbronislaw.lens.Tasks;
 import jedrzejbronislaw.lens.lensViewer.Photo;
 import jedrzejbronislaw.lens.tools.MyFXMLLoader;
 import jedrzejbronislaw.lens.tools.MyFXMLLoader.NodeAndController;
@@ -36,18 +39,38 @@ public class MainWindowController implements Initializable{
 	private MenuItem englishItem;
 	@FXML
 	private MenuItem polishItem;
+	@FXML
+	private Menu taskMenu;
 	
 	
 	@Setter
 	private Consumer<File> selectSourceDirEvent;
 	@Setter
 	private Consumer<File> selectDestinationDirEvent;
+//	@Setter
+//	private Runnable executeClick;
 	@Setter
-	private Runnable executeClick;
+	private Consumer<Task> executeTask;
 	
 	@Setter
 	private Consumer<Languages> changeGUILanguage;
 	
+	
+	public void setTasks(Tasks[] tasks) {
+		MenuItem item;
+		
+		for(int i = 0; i<tasks.length; i++) {
+
+			Tasks task = tasks[i];
+			item = new MenuItem(task.getName());
+			item.setOnAction(e -> {
+				if(executeTask != null)
+					executeTask.accept(task.create());
+			});
+			taskMenu.getItems().add(item);
+			
+		}
+	}
 
 	private void chooseSource() {
 		DirectoryChooser chooser = new DirectoryChooser();
@@ -79,9 +102,9 @@ public class MainWindowController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		sourceLabel.setOnMouseClicked(e -> chooseSource());
 		destinationLabel.setOnMouseClicked(e -> chooseDestination());
-		executeButton.setOnAction(e -> {
-			if (executeClick != null) executeClick.run();
-			});
+//		executeButton.setOnAction(e -> {
+//			if (executeClick != null) executeClick.run();
+//			});
 		englishItem.setOnAction(e -> changeGUILang(Languages.ENGLISH));
 		polishItem.setOnAction(e -> changeGUILang(Languages.POLISH));
 	}

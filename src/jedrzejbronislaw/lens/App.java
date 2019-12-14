@@ -24,12 +24,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import jedrzejbronislaw.lens.BasicOptions.BasicOptionsBuilder;
 import jedrzejbronislaw.lens.lensViewer.Photo;
 import jedrzejbronislaw.lens.lensViewer.controllers.MainWindowController;
-import jedrzejbronislaw.lens.sideStripes.SideStripesTask;
 
 public class App extends Application{
-
+	
 	private File source;
 	private Stage theStage;
 	
@@ -79,22 +79,34 @@ public class App extends Application{
 			controller.setFileList(list);
 		});
 		
-		controller.setExecuteClick(() -> execute());
-		
+		controller.setExecuteTask(task -> execute(task));
+
 		controller.setChangeGUILanguage(lang -> buildScene(lang));
+		
+		controller.setTasks(Tasks.values());
 		
 		return parent;
 	}
     
-    private void execute() {
+    private void execute(Task task) {
 		if(source == null) return;
-
 		String dirPath = source.getAbsolutePath();
+		
+		BasicOptions basicOptions = 
+				new BasicOptionsBuilder()
+				.photos(listFiles(dirPath))
+				.destinationDir(new File(dirPath + "\\ratio"))
+				.saveImage((image, path) -> saveImage(image, path))
+				.build();
+
     	
-    	SideStripesTask stripes = new SideStripesTask(listFiles(dirPath));
-    	stripes.setDestinationDir(new File(dirPath + "\\ratio"));
-    	stripes.setSaveImage((image, path) -> saveImage(image, path));
-    	stripes.execute();
+		task.setBasicOptions(basicOptions);
+		task.execute();
+		
+//    	SideStripesTask stripes = new SideStripesTask(listFiles(dirPath));
+//    	stripes.setDestinationDir(new File(dirPath + "\\ratio"));
+//    	stripes.setSaveImage((image, path) -> saveImage(image, path));
+//    	stripes.execute();
 	}
 
 	private static boolean saveImage(BufferedImage newImage, String newPath) {
